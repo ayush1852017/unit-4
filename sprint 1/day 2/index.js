@@ -3,12 +3,12 @@ const app = express();
 
 const port = 4000;
 app.get("/", (req, res) => {
-  return res.send("book");
+  return res.send("hello");
 });
 
 app.get("/books", (req, res) => {
-  return res.send([ 
-     {
+  return res.send([
+    {
       id: 1,
       "Book Name": "Rafi",
       Author: "Emmott",
@@ -57,7 +57,7 @@ app.get("/books", (req, res) => {
       id: 10,
       "Book Name": "Cristobal",
       Author: "Renee",
-    }
+    },
   ]);
 });
 
