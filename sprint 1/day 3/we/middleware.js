@@ -29,17 +29,6 @@ function loggedIn(role) {
   };
 }
 
-// function logger(req, res, next) {
-//   if (req.path === "/users") {
-//     req.role = "user";
-//   } else if (req.path === "/admin") {
-//     req.role = "admin";
-//   } else {
-//     req.role = "somebody";
-//   }
-//   console.log("called");
-//   next();
-// }
 
 app.listen(5000, () => {
   console.log("listening on port 5000");
