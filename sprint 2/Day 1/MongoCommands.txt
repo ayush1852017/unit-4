@@ -1,0 +1,33 @@
+//------------- Creating database------------------
+
+>use assign
+
+//----------- Creating collection--------------
+
+> db.createCollection("testing")
+
+// -----------Inserting Many document inside collection testing-----------
+
+> db.testing.insertMany([{first_name:"prakash",last_name:"gandhi",email:"fdghd56@gmail.com",ip_address:"233.434.24.1",age:18},{first_name:"surya",last_name:"kumar",email:"fdghd56@gmail.com",ip_address:"233.434.24.1",age:21},{first_name:"raju",last_name:"gaur",email:"fdghd56@gmail.com",ip_address:"233.434.24.1",age:36},{first_name:"rahul",last_name:"pandey",email:"fjwdghhd56@gmail.com",ip_address:"233.434.24.1",age:44},{first_name:"ankur",last_name:"singh",email:"fdghd56@gmail.com",ip_address:"233.434.24.1",age:43},{first_name:"suman",last_name:"singh",email:"fdghhdg56@gmail.com",ip_address:"233.434.24.1",age:24},{first_name:"rahul",last_name:"mishra",email:"ghedghd56@gmail.com",ip_address:"233.434.24.1",age:23},{first_name:"akshay",last_name:"verma",email:"fdgd6@gmail.com",ip_address:"233.434.24.1",age:43},
+{first_name:"arush",last_name:"singh",email:"fdc@gmail.com",ip_address:"213.434.34.1",age:43})])
+
+// -----------Display all data in json format using find and pretty---------------
+
+> db.testing.find({}).pretty()
+
+// -----------Display one data using findOne and pretty not works in this case---------------
+
+> db.testing.findOne({})
+
+// ------------To Delete one data--------------
+
+> db.testing.deleteOne({age:43})
+
+// ------------To Delete many data--------------
+
+> db.testing.deleteMany({age:43})
+
+
+// --------------To Delete The database---------------
+
+> db.dropDatabase()
