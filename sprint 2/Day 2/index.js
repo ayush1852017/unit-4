@@ -6,7 +6,7 @@ const app = express();
 //Connect Mongo
 
 const connectDB = () => {
-  return mongoose.connect("mongodb://127.0.0.1:27017");
+  return mongoose.connect("mongodb://127.0.0.1:27017/assignment");
 };
 
 // Create Schema - A Structure
@@ -22,7 +22,7 @@ const UserSchema = mongoose.Schema({
 
 //Model
 
-const User = mongoose.model("users", UserSchema);
+const User = mongoose.model("testing", UserSchema);
 
 app.get("/data", async (req, res) => {
   // const userData = await User.find({}, { first_name: 1, _id: 0 }).limit(10).lean().exec();
