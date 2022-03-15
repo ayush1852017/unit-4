@@ -3,11 +3,7 @@ const mongoose = require("mongoose");
 
 const app = express();
 
-const connect = () => {
-  return mongoose.connect(
-    "mongodb+srv://harsh:harsh001@cluster0.84eyj.mongodb.net/UNIT4?retryWrites=true&w=majority",
-  );
-};
+const connect = () => {};
 
 // app.use(express.json())
 
