@@ -89,9 +89,9 @@ app.get("/section:uid", async (req, res) => {
     return res.status(200).send(section);
   } catch (error) {}
 });
-app.patch("/section:id", async (req, res) => {
+app.patch("/section:uid", async (req, res) => {
   try {
-    const section = await Section.findByIdAndUpdate(req.params.id, req.body, {
+    const section = await Section.findByIdAndUpdate(req.params.uid, req.body, {
       new: true,
     })
       .lean()
@@ -100,7 +100,15 @@ app.patch("/section:id", async (req, res) => {
     return res.status(200).send(section);
   } catch (error) {}
 });
+app.delete("/section/:uid", async (req, res) => {
+  try {
+    const section = await Section.findByIdAndDelete(req.params.uid).lean().exec();
 
+    return res.status(200).send(section);
+  } catch (err) {
+    return res.status(500).send({ message: err.message });
+  }
+});
 // -------------Book CRUD-----------------
 
 app.get("/book", async (req, res) => {
@@ -119,9 +127,9 @@ app.post("/book", async (req, res) => {
     return res.status(500).send({ message: error.message });
   }
 });
-app.get("/book:id", async (req, res) => {
+app.get("/book:uid", async (req, res) => {
   try {
-    const book = await Book.findById(req.params.id).lean().exec();
+    const book = await Book.findById(req.params.uid).lean().exec();
 
     return res.status(200).send(book);
   } catch (error) {}
@@ -136,6 +144,15 @@ app.patch("/book:id", async (req, res) => {
 
     return res.status(200).send(book);
   } catch (error) {}
+});
+app.delete("/book/:uid", async (req, res) => {
+  try {
+    const book = await Book.findByIdAndDelete(req.params.uid).lean().exec();
+
+    return res.status(200).send(book);
+  } catch (err) {
+    return res.status(500).send({ message: err.message });
+  }
 });
 // -------------Author CRUD-----------------
 
@@ -163,18 +180,31 @@ app.get("/author:uid", async (req, res) => {
       .exec();
 
     return res.status(200).send(author);
-  } catch (error) {}
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
 });
-app.patch("/author:id", async (req, res) => {
+app.patch("/author:uid", async (req, res) => {
   try {
-    const author = await Author.findByIdAndUpdate(req.params.id, req.body, {
+    const author = await Author.findByIdAndUpdate(req.params.uid, req.body, {
       new: true,
     })
       .lean()
       .exec();
 
     return res.status(200).send(author);
-  } catch (error) {}
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
+});
+app.delete("/author/:uid", async (req, res) => {
+  try {
+    const author = await User.findByIdAndDelete(req.params.uid).lean().exec();
+
+    return res.status(200).send(author);
+  } catch (err) {
+    return res.status(500).send({ message: err.message });
+  }
 });
 // -------------Active Port-----------------
 
@@ -186,16 +216,3 @@ app.listen(7000, async () => {
   }
   console.log("listening on port 7000");
 });
-
-// app.get("/sections/:uid", async (req, res) => {
-//   try {
-//     const sections = await Section.findById(req.params.uid)
-//       .populate({ path: "bookId", select: ["bookName", "checkedInTime"] })
-//       .lean()
-//       .exec();
-//     // console.log(req.params)
-//     return res.status(201).send(sections);
-//   } catch (err) {
-//     return res.status(500).send(" Error : " + err);
-//   }
-// });
