@@ -5,36 +5,44 @@ const User = require("../models/user.model");
 const router = express.Router();
 
 router.post(
-  "/",
-  body("firstName").not().isEmpty(),
-  body("email")
-    .isEmail()
-    .withMeassage("Age must be there")
-    .custom((val) => {
-      if (val < 1 || val > 120) {
-        throw new Error("Incorrect Age provided");
-      }
-      return true;
-    }),
-  body("password")
+  "",
+  body("firstName").notEmpty().withMessage("First Name should not be empty!!"),
+  body("lastName").not().isEmpty().withMessage("Last Name should not be empty!!"),
+  body("email").isEmail().withMessage("Please enter valid email address"),
+  body("pincode").isLength({ min: 6, max: 6 }).withMessage("pincode length should be 6"),
+  body("age")
     .not()
     .isEmpty()
-    .withMeassage("Password is required")
-    .custom((value) => {
-      const pasw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/;
-      if (!value.match(pasw)) {
-        throw new Error("Password is weak");
-      }
-      return true;
-    }),
+    .withMessage("Age cannot be Empty")
+    .isInt({ min: 1, max: 100 })
+    .withMessage("Age should be between 1 to 100"),
+  body("gender").custom(async (value) => {
+    if (!value == ("Male" || "Female" || "Others")) {
+      throw new Error("Not valid gender");
+    }
+    return true;
+  }),
   async (req, res) => {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res.status(400).send({ error: errors.array() });
+        return res.status(400).json({ errors: errors.array() });
       }
+
+      const user = await User.create(req.body);
+      return res.status(201).send(user);
     } catch (error) {
       return res.status(500).send("error");
     }
   },
 );
+router.get("", async (req, res) => {
+  try {
+    const user = await User.find().lean().exec();
+    return res.status(201).send(user);
+  } catch (err) {
+    return res.status(500).send(err);
+  }
+});
+
+module.exports = router;
