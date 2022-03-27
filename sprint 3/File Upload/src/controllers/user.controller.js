@@ -3,7 +3,7 @@ const User = require("../models/user.model");
 const uploadFile = require("../middleware/uploads");
 const router = express.Router();
 const path = require("path");
-
+const fs = require("fs")
 router.get("", async (req, res) => {
   try {
     const user = await User.find().lean().exec();
